@@ -1,0 +1,266 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    
+    <div class="slider-area">
+        	<!-- Slider -->
+            {% for slider in sliders %}
+			<div class="block-slider block-slider{{slider.rank}}">
+				<ul class="" id="bxslider-home4">
+                    {% for slider in sliders %}
+					<li>
+						<img src="{{slider.image.url}}" alt="Slide">
+						<div class="caption-group">
+							<h2 class="caption title">
+								{{slider.title}} <span class="{{slider.status}}"></span>
+							</h2>
+							<h4 class="caption subtitle">{{slider.subtitle}}</h4>
+							<a class="caption button-radius" href="#"><span class="icon"></span>Shop now</a>
+						</div>
+					</li>
+                    {% endfor %}
+					
+				
+				
+				</ul>
+			</div>
+            {% endfor %}
+			<!-- ./Slider -->
+    </div> <!-- End slider area -->
+    
+    <div class="promo-area">
+        <div class="zigzag-bottom"></div>
+        <div class="container">
+            <div class="row">
+                {% for  ad in ads %}
+                {% if ad.rank == 1 %}
+                <div class="col-md-3 col-sm-6">
+                    <div class="single-promo promo1">
+                        <i class="fa fa-refresh"></i>
+                        <p>{{ad.title}}</p>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+
+                {% for  ad in ads %}
+                {% if ad.rank == 2 %}
+                <div class="col-md-3 col-sm-6">
+                    <div class="single-promo promo2">
+                        <i class="fa fa-truck"></i>
+                        <p>{{ad.title}}</p>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+
+                {% for  ad in ads %}
+                {% if ad.rank == 3 %}
+                <div class="col-md-3 col-sm-6">
+                    <div class="single-promo promo3">
+                        <i class="fa fa-lock"></i>
+                        <p>{{ad.title}}</p>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+
+                {% for  ad in ads %}
+                {% if ad.rank == 4 %}
+                <div class="col-md-3 col-sm-6">
+                    <div class="single-promo promo4">
+                        <i class="fa fa-gift"></i>
+                        <p>{{ad.title}}</p>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div> <!-- End promo area -->
+    
+    <div class="maincontent-area">
+        <div class="zigzag-bottom"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="latest-product">
+                        <h2 class="section-title">Latest Products</h2>
+                        <div class="product-carousel">
+                            {% for item in items %}
+                            <div class="single-product">
+                                <div class="product-f-image">
+                                    <img src="{{item.image.url}}" alt="">
+                                    <div class="product-hover">
+                                        <a href="{{item.get_cart_url}}" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                        <a href="{{item.get_item_url}}" class="view-details-link"><i class="fa fa-link"></i> See details</a>
+                                    </di
+                                </div>
+                                
+                                <h2><a href="single/">{{item.name}}</a></h2>
+                                {% if item.discounted_price > 0 %}
+                                <div class="product-carousel-price">
+
+                                    <ins>${{item.price}}</ins> <del>${{item.discounted_price}}</del>
+                                    
+                                </div>
+                                {% else %} 
+                                <div class="product-carousel-price">
+
+                                    <ins>${{item.price}}</ins> 
+                                    
+                                </div>
+                            </div>
+                            {% endif %}
+
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- End main content area -->
+    
+    <div class="brands-area">
+        <div class="zigzag-bottom"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="brand-wrapper">
+                        <div class="brand-list">
+                            {% for brand in brands %}
+                        
+                            <img src="{{brand.image.url}}" alt="">
+
+                            {% endfor %}
+                                                       
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- End brands area -->
+    
+    <div class="product-widget-area">
+        <div class="zigzag-bottom"></div>
+        <div class="container">
+            <div class="row">
+                {% for cat in category %}
+                <div class="col-md-4">
+                    
+                    <div class="single-product-widget">
+                        <h2 class="product-wid-title">{{cat.name}}</h2>
+
+                        <a href="{{cat.id}}" class="wid-view-more">View All</a>
+                        {% for item in items %}
+                        {% if item.category_id == cat.id %}
+                        <div class="single-wid-product">
+                            <a href="{{item.get_item_url}}"><img src="{{item.image.url}}" alt="" class="product-thumb"></a>
+                            <h2><a href="{{item.get_item_url}}">{{item.name}}</a></h2>
+                            <div class="product-wid-rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                            {% if item.discounted_price > 0 %}
+                            <div class="product-wid-price">
+                                <ins>${{item.discounted_price }}</ins> <del>${{item.price}}</del>
+                            </div> 
+                            {% else %}
+                            <div class="product-wid-price">
+                                 <del>${{item.price}}</del>
+                            </div>  
+                            {% endif %}
+                            {% endfor %}                          
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                        
+                    </div>
+                   
+                </div>
+                {% endfor %}
+
+                {% for cat in category %}
+                <div class="col-md-4">
+                    <div class="single-product-widget">
+                        <h2 class="product-wid-title">{{cat.name}}</h2>
+                        <a href="{{cat.id}}" class="wid-view-more">View All</a>
+                        {% for item in items %}
+                        {% if item.category_id == cat.id %}
+                        <div class="single-wid-product">
+                            <a href="{{item.get_item_url}}"><img src="{{item.image.url}}" alt="" class="product-thumb"></a>
+                            <h2><a href="{{item.get_item_url}}">{{item.name}}</a></h2>
+                            <div class="product-wid-rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                            {% if item.discounted_price > 0 %}
+                            <div class="product-wid-price">
+                                <ins>${{item.discounted_price }}</ins> <del>${{item.price}}</del>
+                            </div> 
+                            {% else %}
+                            <div class="product-wid-price">
+                                 <del>${{item.price}}</del>
+                            </div>  
+                            {% endif %}
+                            {% endfor %}   
+                           
+                            
+                            </div> 
+                            {% endif %}
+                            {% endfor %}                            
+                        </div>
+                     
+                    </div>
+                </div>
+                {% endfor %}
+
+                {% for cat in category %}
+
+                <div class="col-md-4">
+                    <div class="single-product-widget">
+                        <h2 class="product-wid-title">{{cat.name}}</h2>
+                       
+                        <a href="{{cat.id}}" class="wid-view-more">View All</a>
+                        {% for item in items %}
+                        {% if item.category_id == cat.id %}
+                        <div class="single-wid-product">
+                            <a href="{{item.get_item_url}}"><img src="{{item.image.url}}" alt="" class="product-thumb"></a>
+                            <h2><a href="{{item.get_item_url}}"></a>{{item.name}}</h2>
+                            <div class="product-wid-rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                    
+                            {% if item.discounted_price > 0 %}
+                            <div class="product-wid-price">
+                                <ins>${{item.discounted_price }}</ins> <del>${{item.price}}</del>
+                            </div> 
+                            {% else %}
+                            <div class="product-wid-price">
+                                 <del>${{item.price}}</del>
+                            </div>  
+                            {% endif %}
+                            {% endfor %}   
+                            </div>
+
+                            {% endif %}
+                            {% endfor %}                             
+                        </div>
+                       
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div> <!-- End product widget area -->
+{% endblock %}
