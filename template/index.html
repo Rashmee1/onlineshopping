@@ -15,7 +15,7 @@
 								{{slider.title}} <span class="{{slider.status}}"></span>
 							</h2>
 							<h4 class="caption subtitle">{{slider.subtitle}}</h4>
-							<a class="caption button-radius" href="#"><span class="icon"></span>Shop now</a>
+							<a class="caption button-radius" href="shop/"><span class="icon"></span>Shop now</a>
 						</div>
 					</li>
                     {% endfor %}
@@ -78,12 +78,11 @@
             </div>
         </div>
     </div> <!-- End promo area -->
-    
     <div class="maincontent-area">
         <div class="zigzag-bottom"></div>
         <div class="container">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-4">
                     <div class="latest-product">
                         <h2 class="section-title">Latest Products</h2>
                         <div class="product-carousel">
@@ -94,7 +93,7 @@
                                     <div class="product-hover">
                                         <a href="{{item.get_cart_url}}" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
                                         <a href="{{item.get_item_url}}" class="view-details-link"><i class="fa fa-link"></i> See details</a>
-                                    </di
+                                    </div>
                                 </div>
                                 
                                 <h2><a href="single/">{{item.name}}</a></h2>
@@ -121,6 +120,7 @@
         </div>
     </div> <!-- End main content area -->
     
+
     <div class="brands-area">
         <div class="zigzag-bottom"></div>
         <div class="container">
@@ -140,8 +140,7 @@
             </div>
         </div>
     </div> <!-- End brands area -->
-    
-    <div class="product-widget-area">
+     <div class="product-widget-area">
         <div class="zigzag-bottom"></div>
         <div class="container">
             <div class="row">
@@ -151,7 +150,7 @@
                     <div class="single-product-widget">
                         <h2 class="product-wid-title">{{cat.name}}</h2>
 
-                        <a href="{{cat.id}}" class="wid-view-more">View All</a>
+                        <a href="/" class="wid-view-more">View All</a>
                         {% for item in items %}
                         {% if item.category_id == cat.id %}
                         <div class="single-wid-product">
@@ -166,14 +165,14 @@
                             </div>
                             {% if item.discounted_price > 0 %}
                             <div class="product-wid-price">
-                                <ins>${{item.discounted_price }}</ins> <del>${{item.price}}</del>
+                                <ins>${{item.price }}</ins> <del>${{item.discounted_price}}</del>
                             </div> 
                             {% else %}
                             <div class="product-wid-price">
-                                 <del>${{item.price}}</del>
+                                 <ins>${{item.price}}</ins>
                             </div>  
                             {% endif %}
-                            {% endfor %}                          
+                                                      
                         </div>
                         {% endif %}
                         {% endfor %}
@@ -183,83 +182,9 @@
                 </div>
                 {% endfor %}
 
-                {% for cat in category %}
-                <div class="col-md-4">
-                    <div class="single-product-widget">
-                        <h2 class="product-wid-title">{{cat.name}}</h2>
-                        <a href="{{cat.id}}" class="wid-view-more">View All</a>
-                        {% for item in items %}
-                        {% if item.category_id == cat.id %}
-                        <div class="single-wid-product">
-                            <a href="{{item.get_item_url}}"><img src="{{item.image.url}}" alt="" class="product-thumb"></a>
-                            <h2><a href="{{item.get_item_url}}">{{item.name}}</a></h2>
-                            <div class="product-wid-rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                            {% if item.discounted_price > 0 %}
-                            <div class="product-wid-price">
-                                <ins>${{item.discounted_price }}</ins> <del>${{item.price}}</del>
-                            </div> 
-                            {% else %}
-                            <div class="product-wid-price">
-                                 <del>${{item.price}}</del>
-                            </div>  
-                            {% endif %}
-                            {% endfor %}   
-                           
-                            
-                            </div> 
-                            {% endif %}
-                            {% endfor %}                            
-                        </div>
-                     
-                    </div>
+               
                 </div>
-                {% endfor %}
-
-                {% for cat in category %}
-
-                <div class="col-md-4">
-                    <div class="single-product-widget">
-                        <h2 class="product-wid-title">{{cat.name}}</h2>
-                       
-                        <a href="{{cat.id}}" class="wid-view-more">View All</a>
-                        {% for item in items %}
-                        {% if item.category_id == cat.id %}
-                        <div class="single-wid-product">
-                            <a href="{{item.get_item_url}}"><img src="{{item.image.url}}" alt="" class="product-thumb"></a>
-                            <h2><a href="{{item.get_item_url}}"></a>{{item.name}}</h2>
-                            <div class="product-wid-rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                    
-                            {% if item.discounted_price > 0 %}
-                            <div class="product-wid-price">
-                                <ins>${{item.discounted_price }}</ins> <del>${{item.price}}</del>
-                            </div> 
-                            {% else %}
-                            <div class="product-wid-price">
-                                 <del>${{item.price}}</del>
-                            </div>  
-                            {% endif %}
-                            {% endfor %}   
-                            </div>
-
-                            {% endif %}
-                            {% endfor %}                             
-                        </div>
-                       
-                    </div>
-                </div>
-                {% endfor %}
+                
             </div>
         </div>
     </div> <!-- End product widget area -->

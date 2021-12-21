@@ -19,13 +19,18 @@ class HomeView(BaseView):
     def get(self,request):
         # self.views['items'] = Item.objects.all()
         
-        self.views['items'] = Item.objects.filter(stock = 'In Stock')
+        self.views['items'] = Item.objects.all()
         self.views['ads'] = Ad.objects.all()
         self.views['sliders'] = Slider.objects.all()
         self.views['category'] = Category.objects.all()
-        self.views['subcategory'] = Subcategory.objects.all()
+        #self.views['subcategory'] = Subcategory.objects.all()
+        #ids = Category.objects.get(slug = slug).id
+        #self.views['cat_items'] = Item.objects.filter(category_id = ids)
         self.views['brands'] = Brand.objects.all()
         return render(request,'index.html',self.views)
+
+
+
 
 
 
@@ -35,15 +40,20 @@ class HomeView(BaseView):
 class ItemDetailView(BaseView):
 	def get(self,request,slug):
 		self.views['category'] = Category.objects.all()
-		self.views['subcategory'] = SubCategory.objects.all()
+		#self.views['subcategory'] = SubCategory.objects.all()
 		self.views['item_detail'] = Item.objects.filter(slug = slug)
 		self.views['sale_item'] = Item.objects.filter(labels = 'sale')
 		
 
-		return render(request,'single-produt.html',self.views)
+		return render(request,'single-product.html',self.views)
 
-def shop(request):
-	return render(request,'shop.html')
+class ShopView(BaseView):
+    def get(self,request,slug):
+        self.views['items'] = Item.objects.all()
+        self.views['category'] = Category.objects.all()
+        return render(request,'shop.html',self.views)
+
+	   
 
 def contact(request):
     if request.method == 'POST':
@@ -101,3 +111,12 @@ def signup(request):
 def single(request):
     return render(request,'single-product.html')
 
+class Search(BaseView):
+    def get(self,request):
+        if request.method == 'GET':
+
+            query = request.GET['query']
+            if query is None:
+                return redirect('single/')
+            self.views['search_product'] = Item.objects.filter(name__icontains = query)
+        return render(request,'single-product.html',self.views)
