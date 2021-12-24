@@ -1,19 +1,20 @@
+   
 from django.shortcuts import render
 from .models import *
 from home.models import Item
 from home.views import *
 from django.urls import reverse
-
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 class CartView(BaseView):
 	def get(self,request):
-		self.views['view_cart'] = Cart.objects.filter(user = request.user,checkout = False)
+		self.views['view_cart'] = Cart.objects.all()
+
 		return render(request,'cart.html',self.views)
 
 @login_required
 def cart(request,slug):
-	if Item.objects.filter(stock = 'In Stock'):
+	if Item.objects.all():
 		if Cart.objects.filter(slug = slug).exists():
 			quantity = Cart.objects.get(slug = slug).quantity
 			quantity = quantity +1
@@ -48,7 +49,7 @@ def cart(request,slug):
 	return redirect('/cart')
 
 def remove_cart(request,slug):
-	if Cart.objects.filter(slug = slug).exists():
+	if Cart.objects.all():
 		quantity = Cart.objects.get(slug = slug).quantity
 		price = Item.objects.get(slug = slug).price
 		discounted_price = Item.objects.get(slug = slug).discounted_price
@@ -72,8 +73,9 @@ def remove_cart(request,slug):
 		messages.error(request, 'The product is not in our list.')
 		return redirect('/')
 
+
 def delete_cart(request,slug):
-	if Cart.objects.filter(slug = slug).exists():
+	if Cart.objects.all():
 		Cart.objects.filter(slug = slug).delete()
 		messages.success(request, 'The cart is deleted.')
 		return redirect('cart:cart')
@@ -81,7 +83,6 @@ def delete_cart(request,slug):
 	else:
 		messages.success(request, 'The cart is deleted.')
 		return redirect('cart:cart')
-
 
 
 

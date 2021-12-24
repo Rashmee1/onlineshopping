@@ -12,37 +12,35 @@ from django.conf import settings
 # Create your views here.
 class BaseView(View):
 	views = {}
-	#views['category'] = Category.objects.all()
-	#views['subcategory'] = Subcategory.objects.all()
+
 
 class HomeView(BaseView):
     def get(self,request):
-        # self.views['items'] = Item.objects.all()
         
         self.views['items'] = Item.objects.all()
         self.views['ads'] = Ad.objects.all()
         self.views['sliders'] = Slider.objects.all()
         self.views['category'] = Category.objects.all()
-        #self.views['subcategory'] = Subcategory.objects.all()
-        #ids = Category.objects.get(slug = slug).id
-        #self.views['cat_items'] = Item.objects.filter(category_id = ids)
         self.views['brands'] = Brand.objects.all()
         return render(request,'index.html',self.views)
 
+class ContactInfoView(BaseView):
+    def get(self,request,slug):
+        self.views['contactinfos'] = ContactInfo.objects.all()
+        return render(request,'contact.html',self.views)
+        
 
 
 
 
 
 
-
-
-class ItemDetailView(BaseView):
+class ProductView(BaseView):
 	def get(self,request,slug):
 		self.views['category'] = Category.objects.all()
-		#self.views['subcategory'] = SubCategory.objects.all()
-		self.views['item_detail'] = Item.objects.filter(slug = slug)
-		self.views['sale_item'] = Item.objects.filter(labels = 'sale')
+		
+		self.views['items'] = Item.objects.all()
+
 		
 
 		return render(request,'single-product.html',self.views)
@@ -54,7 +52,6 @@ class ShopView(BaseView):
         return render(request,'shop.html',self.views)
 
 	   
-
 def contact(request):
     if request.method == 'POST':
         name = request.POST.get('name')
@@ -69,15 +66,12 @@ def contact(request):
         }
         message = '''''
         New message: {}
-
         From: {}
-
         '''''.format(data['message'], data['email'])
         send_mail(data['subject'], message, '',['djangocontact44@gmail.com']) 
 
     return render(request,'contact.html',{})
      
-
 
 def signup(request):
     if  request.method =='POST':

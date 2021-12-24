@@ -78,9 +78,11 @@ class Contact(models.Model):
 	email = models.CharField(max_length=500)
 	subject = models.TextField()
 	message = models.TextField()
+	address = models.TextField(default=0)
+	phone = models.IntegerField(default=0)
 	def __str__ (self):
 		return self.name
-        		
+
 
 
 

@@ -2,6 +2,7 @@ from django.db import models
 from home.models import Item
 from django.conf  import settings 
 from django.urls  import reverse
+from django.shortcuts import reverse
 
 # Create your models here.
 
@@ -12,10 +13,13 @@ class Cart(models.Model):
 	slug = models.CharField(max_length = 300)
 	checkout = models.BooleanField(default = 'FALSE')
 	sub_total = models.IntegerField(default = 0)
+
 	def __str__ (self):
 		return self.user.username
 	def get_remove_cart_url(self):
 		return  reverse('cart:remove-cart',kwargs={'slug':self.slug})
+	
 	def get_delete_cart_url(self):
 		return reverse('cart:delete-cart',kwargs={'slug':self.slug})
-	
+
+
