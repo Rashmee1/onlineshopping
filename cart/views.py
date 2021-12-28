@@ -1,15 +1,14 @@
-   
 from django.shortcuts import render
 from .models import *
 from home.models import Item
 from home.views import *
 from django.urls import reverse
+
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 class CartView(BaseView):
 	def get(self,request):
 		self.views['view_cart'] = Cart.objects.all()
-
 		return render(request,'cart.html',self.views)
 
 @login_required
@@ -25,6 +24,8 @@ def cart(request,slug):
 			else:
 				original_price = price
 			subtotal = quantity*original_price
+			
+
 			Cart.objects.filter(slug = slug).update(quantity = quantity,sub_total = subtotal)
 		else:
 			price = Item.objects.get(slug = slug).price
@@ -35,15 +36,17 @@ def cart(request,slug):
 				original_price = price
 			username = request.user
 			subtotal = original_price
+		
 			data = Cart.objects.create(
 				user = username,
 				slug = slug,
 				items = Item.objects.filter(slug = slug)[0],
-				sub_total = subtotal
+				sub_total = subtotal,
+				
 				)
 			data.save()
+
 	else:
-		messages.error(request, 'This item is out of stock')
 		return redirect('/')
 
 	return redirect('/cart')
@@ -72,7 +75,6 @@ def remove_cart(request,slug):
 	else:
 		messages.error(request, 'The product is not in our list.')
 		return redirect('/')
-
 
 def delete_cart(request,slug):
 	if Cart.objects.all():

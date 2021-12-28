@@ -3,14 +3,18 @@
 
 {% block content %}
 
-<div class="ui grid">
-  <div class="four wide column"></div>
-  <div class="eight wide column">
-    <div class="ui middle aligned center aligned grid">
-      <div class="column mt-5">
-        <h2 class="ui teal image header">
-          <div class="content">Log-in</div>
-        </h2>
+
+    <div class="product-big-title-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="product-bit-title text-center">
+                        <h2>Login</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
           
           <center>
@@ -23,6 +27,7 @@
         {% csrf_token %}
         
           <div class="ui stacked segment">
+            <div class= "card">
             <div class="field">
               <div class="ui left icon input">
                 <i class="user icon"></i>
@@ -35,13 +40,12 @@
                 <input type="password" required name="password" placeholder="Password" />
               </div>
             </div>
+
             <button class="ui fluid large teal submit button">Login</button>
           </div>
-
+         </div>
         </form>
-
-        <div class="ui message">Dont have an account? <a href="signup/">Signup</a></div>
-        
+       
       </div>
     </div>
     <div class="four wide column"></div>

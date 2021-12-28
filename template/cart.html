@@ -19,7 +19,7 @@
         <div class="container">
             <div class="row">
               
-                {% for cart in view_cart %}
+              
                 <div class="col-md-8">
                     <div class="product-content-right">
                         <div class="woocommerce">
@@ -38,12 +38,12 @@
                                     
                                     <tbody>
                                         {% for cart in view_cart %}
-                                      
+                                       
                                         <tr class="cart_item">
-                                            <a href="{{cart.get_delete_cart_url}}">
                                             <td class="product-remove">
-                                                <a title="Remove this item" class="remove" href="cart">×</a> 
-                                            </td></a>
+
+                                                <a title="Remove this item" class="remove" href="{{cart.get_delete_cart_url}}">×</a> 
+                                            </td>
 
                                             <td class="product-thumbnail">
                                                 <a href="{{cart.items.get_item_url}}"><img width="145" height="145" alt="poster_1_up" class="shop_thumbnail" src="{{cart.items.image.url}}"></a>
@@ -79,11 +79,13 @@
                                         </tr>
                                         {% endfor %}
                                         <tr>
-                                            <td class="actions" colspan="6">
-                                               <a href="/">
-                                                <input type="submit" value="Update Cart" name="update_cart" class="button"></a>
-                                                <a href="checkout">
-                                                <input type="submit" value="Checkout" name="proceed" class="checkout-button button alt wc-forward"></a>
+                                            <td class="update_cart" colspan="6">
+                                                <form action="GET">
+                                                {% csrf_token %}
+                                                
+                                               <div class="woocommerce-info"><a class="button" data-toggle="collapse" href="checkout" aria-expanded="false" aria-controls="login-form-wrap">CHECKOUT</a></div>
+                                               <div class="woocommerce-info"><a class="button" data-toggle="collapse" href="/" aria-expanded="false" aria-controls="login-form-wrap">ADD ITEMS</a></div>
+                                                </form>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -93,40 +95,18 @@
                             </form>
 
                             <div class="cart-collaterals">
+                             
 
-
-                           
-                            <div class="cart_totals ">
-                                <h2>Cart Totals</h2>
-                        
-                                <table cellspacing="0">
-                                    <tbody>
-                                        <tr class="cart-subtotal">
-                                            <th>SUBTOTAL</th>
-                                            <td><span class="amount">{{cart.sub_total}}</span></td>
-                                        </tr>
-
-                                        <tr class="shipping">
-                                            <th>SHIPPING</th>
-                                            <td>FREE</td>
-                                        </tr>
-
-                                        <tr class="order-total">
-                                            <th>ORDER TOTAL</th>
-                                            <td><strong><span class="amount">{{cart.sub_total}}</span></strong> </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
                             
-                            </div>
-                
+                          
 
-
+    
 
                             </div>
                         </div>                        
                     </div>                    
-                {% endfor %}
+               
+                
                 </div>
             </div>
         </div>
