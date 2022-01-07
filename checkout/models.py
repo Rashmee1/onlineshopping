@@ -1,4 +1,7 @@
 from django.db import models
+
+# Create your models here.
+from django.db import models
 from home.models import Item
 from django.conf  import settings 
 from django.urls  import reverse
@@ -32,6 +35,9 @@ class Totalcart(models.Model):
 
 	def __str__ (self):
 		return self.cart.user.username	
+	
+        		
+        	
 
 
 

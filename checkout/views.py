@@ -2,6 +2,7 @@ from django.shortcuts import render
 from .models import *
 from home.models import Item 
 from home.views import *
+from django.contrib.auth.decorators import login_required
 
 
 
@@ -15,7 +16,7 @@ class CheckoutView(BaseView):
       
         return render(request,'checkout.html',self.views)
 
-
+@login_required
 def checkoutform(request):
     if  request.method =='POST':
         Ordered_by = request.POST['Ordered_by']
@@ -23,12 +24,8 @@ def checkoutform(request):
         address = request.POST['address']
         emailaddress = request.POST['emailaddress']
         phone = request.POST['phone']
-       
-
-
-    else:
         user = Checkoutform.objects.create_user(
-    
+
             Ordered_by = Ordered_by,
             country = country,
             address = address,
@@ -37,20 +34,24 @@ def checkoutform(request):
             )
         user.save()
 
-        return redirect('checkout:checkout')
-   
-    return redirect('checkout:checkout')
+        return redirect('checkout:checkoutform')
+
+    return redirect('checkout:checkoutform')
+
+
+
+
 
 
 
 def total_cart(request):
-	cart= Cart.objects.get(slug=slug).cart
-	total=0
-	for cart in carts:
-		total += cart.sub_total
-	
-	cart.save()
-	return redirect('checkout:Totalcart')
+    cart= Cart.objects.get(slug=slug).cart
+    total=0
+    for cart in carts:
+        total = total + cart.sub_total
+    
+    cart.save()
+    return redirect('checkout:Totalcart')
        
     
         

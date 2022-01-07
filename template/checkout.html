@@ -28,6 +28,8 @@
                             </div>
 
                             <form id="login-form-wrap" class="login collapse" method="post">
+                            {% csrf_token %}
+                            {{ form }}
 
 
                                 <p>If you have shopped with us before, please enter your details in the boxes below. If you are a new customer please proceed to the Billing &amp; Shipping section.</p>
@@ -58,12 +60,13 @@
 
                            
 
-                            <form enctype="multipart/form-data" action="#" class="checkout" method="post" name="checkout">
-
+                            <form enctype="multipart/form-data" action="{{checkout}}" class="checkout" method="POST" name="checkout">
+                                {% csrf_token %}
+                                {{ form }}
                                 <div id="customer_details" class="col2-set">
                                     <div class="col-1">
                                 
-                                        {% for checkoutitem in checkouts %}
+                            
                                         <div class="woocommerce-billing-fields">
                                             <h3>Checkout Form</h3>
                                            
@@ -71,7 +74,7 @@
                                             <p id="billing_first_name_field" class="form-row form-row-first validate-required">
                                                 <label class="" for="billing_first_name">Ordered by <abbr title="required" class="required">*</abbr>
                                                 </label>
-                                                <input type="text" value="{{checkout.ordered_by}}" placeholder="" id="billing_first_name" name="billing_first_name" class="input-text ">
+                                                <input type="text" value="{{checkoutform.ordered_by}}" placeholder="" id="billing_first_name" name="billing_first_name" class="input-text ">
                                             </p>
 
                                             <div class="clear"></div>
@@ -81,14 +84,14 @@
                                             <p id="billing_address_1_field" class="form-row form-row-wide address-field validate-required">
                                                 <label class="" for="billing_address_1">Address <abbr title="required" class="required">*</abbr>
                                                 </label>
-                                                <input type="text" value="{{checkout.address}}" placeholder="Street address" id="billing_address_1" name="billing_address_1" class="input-text ">
+                                                <input type="text" value="{{checkoutform.address}}" placeholder="Street address" id="billing_address_1" name="billing_address_1" class="input-text ">
                                             </p>
 
                                          
                                            
                                             <p id="billing_state_field" class="form-row form-row-first address-field validate-state" data-o_class="form-row form-row-first address-field validate-state">
                                                 <label class="" for="billing_state">County</label>
-                                                <input type="text" id="billing_state" name="billing_state" placeholder="State / County" value="{{checkout.country}}" class="input-text ">
+                                                <input type="text" id="billing_state" name="billing_state" placeholder="State / County" value="{{checkoutform.country}}" class="input-text ">
                                             </p>
                                            
 
@@ -97,38 +100,39 @@
                                             <p id="billing_email_field" class="form-row form-row-first validate-required validate-email">
                                                 <label class="" for="billing_email">Email Address <abbr title="required" class="required">*</abbr>
                                                 </label>
-                                                <input type="text" value="{{checkout.emailaddress}}" placeholder="" id="billing_email" name="billing_email" class="input-text ">
+                                                <input type="text" value="{{checkoutform.emailaddress}}" placeholder="" id="billing_email" name="billing_email" class="input-text ">
                                             </p>
 
                                             <p id="billing_phone_field" class="form-row form-row-last validate-required validate-phone">
                                                 <label class="" for="billing_phone">Phone <abbr title="required" class="required">*</abbr>
                                                 </label>
-                                                <input type="text" value="{{checkout.phone}}" placeholder="" id="billing_phone" name="billing_phone" class="input-text ">
+                                                <input type="text" value="{{checkoutform.phone}}" placeholder="" id="billing_phone" name="billing_phone" class="input-text ">
                                             </p>
-                                            <div class="clear"></div>
-                                        
-
-                                           
-
                                         </div>
-                                        {% endfor %}
+                                        <input  type="submit" value="Place Order" >
+                                        <div class="clear"></div>
+                                    </div>
+
                     
                                     </div>
-
-                             
+                                </form>
+                                  <div class="woocommerce-info"><a class="button" data-toggle="collapse" href="cart" aria-expanded="false" aria-controls="login-form-wrap">UPDATE CART</a>
+                            </div>
+                        </div>
+                    </div>
                                     </div>
 
-                                </div>
+                             </form>
+                         </div>
+                                    </div>
 
-
-
-                          
-                                <h3 id="order_review_heading">Your order</h3>
+                            <h3 id="order_review_heading">Your order</h3>
                               
                                 <div id="order_review" style="position: relative;">
-                                
-                                    
+                        
                                     {% for totalcart in total_cart %}
+                                  
+                            
                                     <table class="shop_table">
                                         <thead>
                                             <tr>
@@ -162,32 +166,21 @@
 
                                         </tfoot>
                                     </table>
-
+                
                                     {% endfor %}
-                                         <form action="" method="POST"> 
-                                        {% csrf_token %}
-                                        {{form}}
-                                        <div class="woocommerce-info"><a class="button" data-toggle="collapse" href="checkout" aria-expanded="false" aria-controls="login-form-wrap">PLACE ORDER</a>
-                                        </div>
-
-
-
-
-                                        <div class="woocommerce-info"><a class="button" data-toggle="collapse" href="cart" aria-expanded="false" aria-controls="login-form-wrap">UPDATE CART</a>
+                                      
 
                                         <div class="clear"></div>
 
                                     </div>
+                            
                     
-                    
-            
-
-                        </div>                       
-                    </div>                    
+                                </div>                       
+                            </div>                    
+                        </div>
+                
+                    </div>
                 </div>
-        
             </div>
-        </div>
-    </div>
-    
+            
 {% endblock %}

@@ -5,4 +5,3 @@ admin.site.register(Checkoutform)
 admin.site.register(Totalcart)
 
 
-
